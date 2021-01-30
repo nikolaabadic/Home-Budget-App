@@ -23,7 +23,7 @@ namespace HomeBudget.Data.Implementation
             context.Categories.Remove(category);
         }
 
-        public Category FindByID(params int[] id)
+        public Category FindByID(int id, params int[] ids)
         {
             return context.Categories.Find(id);
         }

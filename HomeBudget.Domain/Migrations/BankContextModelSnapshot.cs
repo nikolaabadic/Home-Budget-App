@@ -29,6 +29,9 @@ namespace HomeBudget.Domain.Migrations
                     b.Property<int>("AccountType")
                         .HasColumnType("int");
 
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
                     b.Property<int>("Currency")
                         .HasColumnType("int");
 

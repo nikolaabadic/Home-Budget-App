@@ -18,6 +18,7 @@ namespace HomeBudget.Domain
         public Currency Currency { get; set; }
         public AccountType AccountType { get; set; }
         public string Number { get; set; }
+        public double Amount { get; set; }
         public int UserID { get; set; }
         public User User { get; set; }
         public List<CreditCard> CreditCards { get; set; }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace HomeBudget.Data.Implementation
@@ -23,7 +24,7 @@ namespace HomeBudget.Data.Implementation
             context.Accounts.Remove(account);
         }
 
-        public Account FindByID(params int[] id)
+        public Account FindByID(int id,params int[] ids)
         {
             return context.Accounts.Find(id);
         }
@@ -31,6 +32,11 @@ namespace HomeBudget.Data.Implementation
         public List<Account> GetAll()
         {
             return context.Accounts.ToList();
+        }
+
+        public List<Account> Search(Expression<Func<Account,bool>> pred)
+        {
+            return context.Accounts.Where(pred).ToList();
         }
     }
 }

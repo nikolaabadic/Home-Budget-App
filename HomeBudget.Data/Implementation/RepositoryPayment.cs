@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace HomeBudget.Data.Implementation
@@ -24,7 +25,7 @@ namespace HomeBudget.Data.Implementation
             context.Payments.Remove(payment);
         }
 
-        public Payment FindByID(params int[] id)
+        public Payment FindByID(int id, params int[] ids)
         {
             return context.Payments.Find(id);
         }
@@ -32,6 +33,11 @@ namespace HomeBudget.Data.Implementation
         public List<Payment> GetAll()
         {
             return context.Payments.ToList();
+        }
+
+        public List<Payment> Search(Expression<Func<Payment, bool>> pred)
+        {
+            return context.Payments.Where(pred).ToList();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace HomeBudget.Data
     {
         void Add(T param);
         List<T> GetAll();
-        T FindByID(params int[] id);
+        T FindByID(int id, params int[] ids);
         void Delete(T param);
     }
 }
