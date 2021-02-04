@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HomeBudget.WebApp.Controllers
 {
-    [LogedInUser]
+    
     public class AccountController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
@@ -20,18 +20,20 @@ namespace HomeBudget.WebApp.Controllers
             this.unitOfWork = unitOfWork;
         }
         // GET: AccountController
+        [LogedInUser]
         public ActionResult Index()
         {
             return View();
         }
 
         // GET: AccountController/Details/5
+        [LogedInUser]
         public ActionResult Details(int id)
         {
             Account account = unitOfWork.Account.FindByID(id);
             AccountDetailsModel model = new AccountDetailsModel();
 
-            model.AccountID = id; ;
+            model.OwnerAccountID = id;
             model.AccountType = account.AccountType;
             model.Currency = account.Currency;
             model.Number = account.Number;
@@ -49,13 +51,14 @@ namespace HomeBudget.WebApp.Controllers
             {
                 amount -= p.Amount;
             }
+            
             model.Amount = amount;
             model.Payments = paymentsFrom.Concat(paymentsTo).ToList().OrderBy(p => p.DateTime).ToList();
-
-            
+            model.CreditCards = account.CreditCards;           
             return View(model);
         }
-
+        [AdminLoggedIn]
+        [NotLoggedIn]
         // GET: AccountController/Create
         public ActionResult Create()
         {
@@ -65,11 +68,24 @@ namespace HomeBudget.WebApp.Controllers
         // POST: AccountController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [AdminLoggedIn]
+        [NotLoggedIn]
+        public ActionResult Create(AccountDetailsModel model)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                int userID = unitOfWork.User.Search(u => u.Username == model.Username).UserID;
+                Account account = new Account
+                {
+                    Currency = model.Currency,
+                    AccountType=model.AccountType,
+                    Number=model.Number,
+                    Amount=model.Amount,
+                    UserID=userID
+                };
+                unitOfWork.Account.Add(account);
+                unitOfWork.Commit();
+                return View();
             }
             catch
             {
@@ -78,6 +94,7 @@ namespace HomeBudget.WebApp.Controllers
         }
 
         // GET: AccountController/Edit/5
+        [LogedInUser]
         public ActionResult Edit(int id)
         {
             return View();
@@ -86,6 +103,7 @@ namespace HomeBudget.WebApp.Controllers
         // POST: AccountController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [LogedInUser]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -99,6 +117,7 @@ namespace HomeBudget.WebApp.Controllers
         }
 
         // GET: AccountController/Delete/5
+        [LogedInUser]
         public ActionResult Delete(int id)
         {
             return View();
@@ -107,6 +126,7 @@ namespace HomeBudget.WebApp.Controllers
         // POST: AccountController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [LogedInUser]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try

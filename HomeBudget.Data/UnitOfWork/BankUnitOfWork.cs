@@ -17,12 +17,14 @@ namespace HomeBudget.Data.UnitOfWork
             Account = new RepositoryAccount(context);
             Payment = new RepositoryPayment(context);
             Category = new RepositoryCategory(context);
+            Belonging = new RepositoryBelonging(context);
         }
 
         public IRepositoryUser User { get ; set; }
         public IRepositoryAccount Account { get; set; }
         public IRepositoryPayment Payment { get; set; }
         public IRepositoryCategory Category { get; set; }
+        public IRepositoryBelonging Belonging { get; set; }
 
         public void Commit()
         {

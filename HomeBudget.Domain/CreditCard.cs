@@ -8,6 +8,7 @@ namespace HomeBudget.Domain
     {
         public int CreditCardID { get; set; }
         public string CreditCardNumber { get; set; }
-        public string PINCode { get; set; }
+        public string PINCode { get; set; }        
+
     }
 }

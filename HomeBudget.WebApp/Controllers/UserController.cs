@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HomeBudget.WebApp.Controllers
 {
-    [LogedInUser]
+    
     public class UserController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
@@ -19,20 +19,48 @@ namespace HomeBudget.WebApp.Controllers
         {
             this.unitOfWork = unitOfWork;
         }
-
+        [LogedInUser]
         // GET: UserController
         public ActionResult Index()
         {
             return View("Login");
         }
+        [LogedInUser]
         public ActionResult Logout()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index","Home");
         }
+        [AdminLoggedIn]
+        [NotLoggedIn]
+        // GET: AdminController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
 
+        // POST: AdminController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AdminLoggedIn]
+        [NotLoggedIn]
+        public ActionResult Create(User user)
+        {
+            try
+            {
+                unitOfWork.User.Add(user);
+                unitOfWork.Commit();
+                return View();
+
+            }
+            catch
+            {
+                return View();
+            }
+        }
 
         // GET: UserController/Details/5
+        [LogedInUser]
         public ActionResult Details()
         {
             int? id = HttpContext.Session.GetInt32("userid");
@@ -53,6 +81,7 @@ namespace HomeBudget.WebApp.Controllers
         }
 
         // GET: UserController/Edit/5
+        [LogedInUser]
         public ActionResult Edit(int id)
         {
             User model = unitOfWork.User.FindByID(id);
@@ -62,6 +91,7 @@ namespace HomeBudget.WebApp.Controllers
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [LogedInUser]
         public ActionResult Edit([FromForm]User user)
         {
             if (ModelState.IsValid)

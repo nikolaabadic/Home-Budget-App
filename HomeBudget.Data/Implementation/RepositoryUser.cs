@@ -39,7 +39,11 @@ namespace HomeBudget.Data.Implementation
             return context.Users.Single(u => u.Username == user.Username && u.PINCode == user.PINCode);
         }
 
-        
+        public User Search(Expression<Func<User, bool>> pred)
+        {
+            return context.Users.Single(pred);
+        }
+
 
     }
 }

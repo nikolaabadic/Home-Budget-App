@@ -1,0 +1,133 @@
+﻿@model HomeBudget.WebApp.Models.PaymentCreateModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input hidden asp-for="AccountID" class="form-control" value="@Model.AccountID" />
+                <input hidden asp-for="Payment.PaymentID" class="form-control" value="@Model.Payment.PaymentID" />
+                <input hidden asp-for="Payment.AccountID" class="form-control" value="@Model.Payment.AccountID" />
+                <input hidden asp-for="Payment.RecipientID" class="form-control" value="@Model.Payment.RecipientID" />
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountNumber" class="control-label"> Account number</label>
+                <input readonly asp-for="AccountNumber" class="form-control" value="@Model.AccountNumber" />
+                <span asp-validation-for="AccountNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipientAccountNumber" class="control-label">Recipient Account Number</label>
+                <input readonly  asp-for="RecipientAccountNumber" class="form-control" value="@Model.RecipientAccountNumber" />
+                <span asp-validation-for="RecipientAccountNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment.DateTime" class="control-label">Date</label>
+                <input type="text" readonly  asp-for="Payment.DateTime" class="form-control" value="@Model.Payment.DateTime" />
+                <span asp-validation-for="Payment.DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment.Purpose" class="control-label"></label>
+                <input readonly  asp-for="Payment.Purpose" class="form-control" value="@Model.Payment.Purpose" />
+                <span asp-validation-for="Payment.Purpose" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment.Model" class="control-label"></label>
+                <input readonly  asp-for="Payment.Model" class="form-control" value="@Model.Payment.Model" />
+                <span asp-validation-for="Payment.Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment.ReferenceNumber" class="control-label">Reference Number</label>
+                <input readonly  asp-for="Payment.ReferenceNumber" class="form-control" value="@Model.Payment.ReferenceNumber" />
+                <span asp-validation-for="Payment.ReferenceNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment.Amount" class="control-label"></label>
+                <input readonly  asp-for="Payment.Amount" class="form-control" value="@Model.Payment.Amount" />
+                <span asp-validation-for="Payment.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Categories:</label>
+                @Html.DropDownList("Category", Model.Categories, new { @class = "form-control", @id = "category-select" })
+            </div>
+            <button class="btn-dark" id="add-category">Add category</button>
+            <table class="table" id="categories">
+                <thead>
+                    <tr>
+                        <th>Num</th>
+                        <th>CategoryID</th>
+                        <th>Name</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Payment.Categories)
+                    {
+                        <tr>
+                            <td>@(Model.Payment.Categories.IndexOf(item)+1)</td>
+                            <td>@item.CategoryID</td>
+                            @foreach (var category in Model.CategoryList)
+                            {
+                                if (category.CategoryID == item.CategoryID)
+                                {
+                                    <td>@category.Name</td>
+                                }
+                            }
+                        <td><a href="javascript:DeleteCategory(@Model.Payment.PaymentID,@Model.Payment.AccountID, @Model.Payment.RecipientID,@item.CategoryID,@item.OwnerID)">Delete</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $('#add-category').click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '@Url.ActionLink("AddCategory", "Payment")',
+                method: 'post',
+                data: { CategoryID: $('#category-select').val(), Num: $('#categories tbody tr').length, OwnerID: @Model.AccountID },
+                success: function (data) {
+                    $('#categories tbody').append(data);
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        });
+         function DeleteCategory(PaymentID,AccountID,RecipientID,CategoryID,OwnerID) {
+                $.ajax({
+                    url: "@Url.Action("DeleteCategory","Payment")" ,
+                    type: 'Post',
+                    data: {
+                        id: PaymentID,
+                        accountID: AccountID,
+                        recipientID: RecipientID,
+                        categoryID: CategoryID,
+                        ownerID: OwnerID
+                    },
+                    success: {
+                        //!!!!!!!!!!!!!!!!!1
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+            }
+
+
+
+    </script>
+}

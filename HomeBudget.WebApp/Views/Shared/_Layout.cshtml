@@ -28,6 +28,15 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Log out</a>
                             </li>
                         }
+                        @if (ViewBag.AdminIsLoggedIn != null && ViewBag.AdminIsLoggedIn)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Options">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Logout">Log out</a>
+                            </li>
+                        }
 
                     </ul>
                 </div>

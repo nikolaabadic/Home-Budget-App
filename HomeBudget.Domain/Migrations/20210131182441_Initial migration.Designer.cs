@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeBudget.Domain.Migrations
 {
     [DbContext(typeof(BankContext))]
-    [Migration("20210127181050_Initial migration")]
+    [Migration("20210131182441_Initial migration")]
     partial class Initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,7 +106,9 @@ namespace HomeBudget.Domain.Migrations
             modelBuilder.Entity("HomeBudget.Domain.Payment", b =>
                 {
                     b.Property<int>("PaymentID")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
 
                     b.Property<int>("AccountID")
                         .HasColumnType("int");

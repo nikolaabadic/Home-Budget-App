@@ -1,0 +1,91 @@
+﻿@model HomeBudget.WebApp.Models.PaymentCreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Payment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <input hidden asp-for="Payment.AccountID" class="form-control" value="@Model.AccountID" />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Payment.DateTime" class="control-label">Date</label>
+                <input asp-for="Payment.DateTime" class="form-control" />
+                <span asp-validation-for="Payment.DateTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountNumber" class="control-label">From account</label>
+                <input disabled asp-for="AccountNumber" class="form-control" value="@Model.AccountNumber" />
+                <span asp-validation-for="AccountNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipientAccountNumber" class="control-label">Recipient Account number</label>
+                <input asp-for="RecipientAccountNumber" class="form-control" />
+                <span asp-validation-for="RecipientAccountNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment.Purpose" class="control-label"></label>
+                <input asp-for="Payment.Purpose" class="form-control" />
+                <span asp-validation-for="Payment.Purpose" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment.Model" class="control-label"></label>
+                <input asp-for="Payment.Model" class="form-control" />
+                <span asp-validation-for="Payment.Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment.ReferenceNumber" class="control-label">Reference Number</label>
+                <input asp-for="Payment.ReferenceNumber" class="form-control" />
+                <span asp-validation-for="Payment.ReferenceNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Payment.Amount" class="control-label"></label>
+                <input asp-for="Payment.Amount" class="form-control" />
+                <span asp-validation-for="Payment.Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Categories:</label>
+                @Html.DropDownList("Category", Model.Categories, new { @class = "form-control", @id = "category-select" })
+            </div>
+            <button class="btn-dark" id="add-category">Add category</button>
+            <table class="table" id="categories">
+                <thead>
+                    <tr>
+                        <th>Num</th>
+                        <th>CategoryID</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $('#add-category').click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '@Url.ActionLink("AddCategory", "Payment")',
+                method: 'post',
+                data: { CategoryID: $('#category-select').val(), Num: $('#categories tbody tr').length, OwnerID: @Model.AccountID },
+                success: function (data) {
+                    $('#categories tbody').append(data);
+                },
+                error: function () {
+                    alert("Error");
+                }
+            });
+        });
+    </script>
+}

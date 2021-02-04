@@ -12,5 +12,6 @@ namespace HomeBudget.Domain
         public int AccountID { get; set; }
         public int RecipientID { get; set; }
         public Payment Payment { get; set; }
+        public int OwnerID { get; set; }
     }
 }

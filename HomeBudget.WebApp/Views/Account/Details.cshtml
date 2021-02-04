@@ -37,7 +37,24 @@
     </dl>
 </div>
 <div>
+
+</div>
+@if(Model.CreditCards==null || Model.CreditCards.Count == 0)
+{
+    <h4>No credit cards connected to this account.</h4>
+} else
+{
+    <h4>Credit cards connected to this account</h4>
+    foreach(var c in Model.CreditCards)
+    {
+        <h5>@c.CreditCardNumber</h5>
+    }
+}
+
+<div>
     <h1>Payments</h1>
+   
+    <a asp-action="Create" asp-controller="Payment" asp-route-id="@Model.OwnerAccountID">Add new payment</a>
     <table class="table">
         <thead>
             <tr>
@@ -47,13 +64,15 @@
                 <th>Purpose</th>
                 <th>Sender</th>
                 <th>Recipient</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var p in Model.Payments)
             {
             <tr>
-                @if (p.AccountID == Model.AccountID)
+                @if (p.AccountID == Model.OwnerAccountID)
                 {
                     <td>-</td>
                 }
@@ -66,6 +85,8 @@
                 <td>@p.Purpose</td>
                 <td>@Model.Accounts.Find(a => a.AccountID == p.AccountID).Number</td>
                 <td>@Model.Accounts.Find(a => a.AccountID == p.RecipientID).Number</td>
+                <td>@Html.ActionLink("Details", "Details", "Payment", new { id = p.PaymentID, p.AccountID, p.RecipientID, Model.OwnerAccountID })</td>
+                <td>@Html.ActionLink("Edit", "Edit", "Payment", new { id = p.PaymentID, p.AccountID, p.RecipientID, Model.OwnerAccountID })</td>
             </tr>
             }
         </tbody>

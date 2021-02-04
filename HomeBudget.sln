@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeBudget.Domain", "HomeBu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeBudget.Data", "HomeBudget.Data\HomeBudget.Data.csproj", "{C54D596B-4C3F-417E-9B51-0881415CC61A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeBudget.WebApp", "HomeBudget.WebApp\HomeBudget.WebApp.csproj", "{FEEFAA4A-E6E1-4D48-87DC-CE264A0F5C5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeBudget.WebApp", "HomeBudget.WebApp\HomeBudget.WebApp.csproj", "{FEEFAA4A-E6E1-4D48-87DC-CE264A0F5C5F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomeBudget.ConsoleApp", "HomeBudget.ConsoleApp\HomeBudget.ConsoleApp.csproj", "{F9F86435-2CD9-4FBF-9BB2-E5898F6762C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{FEEFAA4A-E6E1-4D48-87DC-CE264A0F5C5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEEFAA4A-E6E1-4D48-87DC-CE264A0F5C5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEEFAA4A-E6E1-4D48-87DC-CE264A0F5C5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F86435-2CD9-4FBF-9BB2-E5898F6762C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F86435-2CD9-4FBF-9BB2-E5898F6762C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F86435-2CD9-4FBF-9BB2-E5898F6762C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F86435-2CD9-4FBF-9BB2-E5898F6762C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

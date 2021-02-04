@@ -12,6 +12,7 @@ namespace HomeBudget.Domain
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<Belonging> Belongings { get; set; }
 
         public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
 
@@ -27,13 +28,14 @@ namespace HomeBudget.Domain
             modelBuilder.Entity<Account>().OwnsMany(a => a.CreditCards);
             modelBuilder.Entity<Payment>(p =>
             {
+                p.Property(p => p.PaymentID).ValueGeneratedOnAdd();
                 p.HasKey(p => new { p.PaymentID, p.AccountID, p.RecipientID });
                 p.HasOne(p => p.Account).WithMany(a => a.PaymentsTo).OnDelete(DeleteBehavior.Restrict);
                 p.HasOne(p => p.Recipient).WithMany(a => a.PaymentsFrom).OnDelete(DeleteBehavior.Restrict);
             });
             modelBuilder.Entity<Belonging>(b =>
             {
-                b.HasKey(b => new { b.CategoryID, b.PaymentID,b.AccountID,b.RecipientID });
+                b.HasKey(b => new { b.CategoryID, b.PaymentID,b.AccountID,b.RecipientID,b.OwnerID });
                 b.HasOne(b => b.Payment).WithMany(p => p.Categories).OnDelete(DeleteBehavior.Restrict);
             });
             Seed(modelBuilder);

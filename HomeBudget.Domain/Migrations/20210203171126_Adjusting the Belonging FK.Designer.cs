@@ -4,14 +4,16 @@ using HomeBudget.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeBudget.Domain.Migrations
 {
     [DbContext(typeof(BankContext))]
-    partial class BankContextModelSnapshot : ModelSnapshot
+    [Migration("20210203171126_Adjusting the Belonging FK")]
+    partial class AdjustingtheBelongingFK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,12 +39,6 @@ namespace HomeBudget.Domain.Migrations
 
                     b.Property<string>("Number")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("TotalExpense")
-                        .HasColumnType("float");
-
-                    b.Property<double>("TotalIncome")
-                        .HasColumnType("float");
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");

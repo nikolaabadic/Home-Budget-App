@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HomeBudget.Data.UnitOfWork;
 using HomeBudget.Domain;
+using HomeBudget.WebApp.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,7 +30,14 @@ namespace HomeBudget.WebApp
             services.AddSession(opt => opt.IdleTimeout = TimeSpan.FromMinutes(10));
             services.AddControllersWithViews();
             services.AddScoped<IUnitOfWork, BankUnitOfWork>();
+            services.AddScoped<IAdminUnitOfWork, AdminUnitOfWork>();
+            services.AddScoped<LogedInUser>();
+            services.AddScoped<NotLoggedIn>();
+            services.AddScoped<AdminLoggedIn>();
+            services.AddScoped<AdminNotLoggedIn>();
             services.AddDbContext<BankContext>();
+            services.AddDbContext<AdminContext>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

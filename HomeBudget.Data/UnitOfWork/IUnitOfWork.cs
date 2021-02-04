@@ -10,6 +10,7 @@ namespace HomeBudget.Data.UnitOfWork
         public IRepositoryAccount Account { get; set; }
         public IRepositoryPayment Payment { get; set; }
         public IRepositoryCategory Category { get; set; }
+        public IRepositoryBelonging Belonging { get; set; }
         void Commit();
     }
 }

@@ -7,7 +7,7 @@ namespace HomeBudget.WebApp.Models
 {
     public class LoginViewModel
     {
-        public String Username { get; set; }
-        public String PINCode { get; set; }
+        public string Username { get; set; }
+        public string PINCode { get; set; }
     }
 }
