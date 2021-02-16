@@ -15,5 +15,9 @@ namespace HomeBudget.WebApp.Models
         public string RecipientAccountNumber { get; set; }
         public List<Category> CategoryList { get; set; }
         public List<SelectListItem> Categories { get; set; }
+        public double TotalAmount { get; set; }
+        public DateTime Now = DateTime.UtcNow;
+
+
     }
 }

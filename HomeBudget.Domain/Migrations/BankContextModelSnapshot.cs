@@ -36,6 +36,7 @@ namespace HomeBudget.Domain.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Number")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("TotalExpense")
@@ -107,6 +108,24 @@ namespace HomeBudget.Domain.Migrations
                             CategoryID = 2,
                             Description = "Grocery shopping, Restorants,...",
                             Name = "Food"
+                        },
+                        new
+                        {
+                            CategoryID = 3,
+                            Description = "Cinema, Coffee shop,...",
+                            Name = "Social"
+                        },
+                        new
+                        {
+                            CategoryID = 4,
+                            Description = "Swimming, tennis,...",
+                            Name = "Sports"
+                        },
+                        new
+                        {
+                            CategoryID = 5,
+                            Description = "Plane tickets, hotel,...",
+                            Name = "Travel"
                         });
                 });
 
@@ -155,15 +174,19 @@ namespace HomeBudget.Domain.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PINCode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserID");

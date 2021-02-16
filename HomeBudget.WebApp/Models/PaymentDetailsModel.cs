@@ -11,6 +11,8 @@ namespace HomeBudget.WebApp.Models
         public int OwnerAccountID { get; set; }
         public Payment Payment { get; set; }
         public List<Category> Categories { get; set; }
-        public int Num { get; set; }
+        public double Amount { get; set; }
+        public string AccountNumber { get; set; }
+        public string RecipientNumber { get; set; }
     }
 }

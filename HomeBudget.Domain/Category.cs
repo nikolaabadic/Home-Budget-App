@@ -16,4 +16,10 @@ namespace HomeBudget.Domain
             return Name;
         }
     }
+    public class ChartCategory
+    {
+        public int CategoryID { get; set; }
+        public string Name { get; set; }
+        public double Amount { get; set; }
+    }
 }

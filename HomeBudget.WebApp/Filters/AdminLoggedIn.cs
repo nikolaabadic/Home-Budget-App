@@ -24,7 +24,7 @@ namespace HomeBudget.WebApp.Filters
                     context.HttpContext.Response.Redirect("/User/Details");
                     return;
                 }
-                context.HttpContext.Response.Redirect("/Home/Index");
+                context.HttpContext.Response.Redirect("/Admin/Index");
                 return;
             }
             else

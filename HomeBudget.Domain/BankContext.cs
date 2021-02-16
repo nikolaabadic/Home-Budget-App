@@ -49,7 +49,10 @@ namespace HomeBudget.Domain
             );
             modelBuilder.Entity<Category>().HasData(
                 new Category { CategoryID = 1, Name = "Bills", Description = "Electricity, Water, Cabel,.." },
-                new Category { CategoryID = 2, Name = "Food", Description="Grocery shopping, Restorants,..."}
+                new Category { CategoryID = 2, Name = "Food", Description="Grocery shopping, Restorants,..."},
+                new Category { CategoryID = 3, Name = "Social", Description = "Cinema, Coffee shop,..." },
+                new Category { CategoryID = 4, Name = "Sports", Description = "Swimming, tennis,..." },
+                new Category { CategoryID = 5, Name = "Travel", Description = "Plane tickets, hotel,..." }
             );
         }
     }

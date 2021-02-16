@@ -1,9 +1,11 @@
 ﻿@{
     ViewData["Title"] = "Options";
 }
-
+@section Style{
+    <link rel="stylesheet" href="~/css/details.css" />
+}
 <h1>Options</h1>
 
-<p>@Html.ActionLink("Add User","Create","User")</p>
-<p>@Html.ActionLink("Add Account","Create","Account")</p>
+<p>@Html.ActionLink("Add User", "Create", "User")</p>
+<p>@Html.ActionLink("Add Account", "Create", "Account")</p>
 

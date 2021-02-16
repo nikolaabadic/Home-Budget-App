@@ -12,27 +12,58 @@ namespace HomeBudget.ConsoleApp
         static BankContext context = new BankContext();
         static void Main(string[] args)
         {
-            addAccounts();
-            addPayments();
-            //SelectPaymentsWithCategories();
-
+            //addAccounts();
+            //addPayments();
         }
 
         private static void addPayments()
         {
             Payment payment = new Payment
             {
-                AccountID = 1,
-                RecipientID = 3,
-                Amount = 2500,
+                AccountID = 3,
+                RecipientID = 1,
+                Amount = 5000,
                 DateTime = new DateTime(2021, 1,1),
                 Model = 97,
                 Purpose="Rent",
                 ReferenceNumber="111",
                 Categories = new List<Belonging>
                 {
-                    new Belonging{CategoryID=1,AccountID=1,RecipientID=3},
-                    new Belonging{CategoryID=2,AccountID=1,RecipientID=3},
+                    new Belonging{CategoryID=1,AccountID=3,RecipientID=1, OwnerID=1}
+                }
+            };
+            context.Add(payment);
+            context.SaveChanges();
+
+            payment = new Payment
+            {
+                AccountID = 3,
+                RecipientID = 1,
+                Amount = 1000,
+                DateTime = new DateTime(2021, 1, 1),
+                Model = 97,
+                Purpose = "Supermarket",
+                ReferenceNumber = "01-2021",
+                Categories = new List<Belonging>
+                {
+                    new Belonging{CategoryID=2,AccountID=3,RecipientID=1, OwnerID=1}
+                }
+            };
+            context.Add(payment);
+            context.SaveChanges();
+
+            payment = new Payment
+            {
+                AccountID = 1,
+                RecipientID = 3,
+                Amount = 2400,
+                DateTime = new DateTime(2021, 1, 3),
+                Model = 97,
+                Purpose = "Plane ticket",
+                ReferenceNumber = "",
+                Categories = new List<Belonging>
+                {
+                    new Belonging{CategoryID=5,AccountID=3,RecipientID=1, OwnerID=1}
                 }
             };
             context.Add(payment);
@@ -82,16 +113,6 @@ namespace HomeBudget.ConsoleApp
             };
             context.Add(account);
             context.SaveChanges();
-        }
-
-        public static void SelectPaymentsWithCategories()
-        {
-            var payments = context.Payments
-                .Select(p =>
-                new
-                {
-                    Categories = p.Categories.Select(b => b.Category)
-                }).ToList();
         }
     }
 }

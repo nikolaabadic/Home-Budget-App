@@ -17,5 +17,10 @@ namespace HomeBudget.WebApp.Models
         public List<CreditCard> CreditCards { get; set; }
         public List<Payment> Payments { get; set; }
         public string Username { get; set; }
+
+        public List<double> IncomeCategory { get; set; }
+        public List<double> ExpenseCategory { get; set; }
+        public List<string> IncomeLabels { get; set; }
+        public List<string> ExpenseLabels { get; set; }
     }
 }

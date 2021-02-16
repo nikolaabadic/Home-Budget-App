@@ -19,13 +19,16 @@ namespace HomeBudget.WebApp.Controllers
         {
             this.unitOfWork = unitOfWork;
         }
-        [LogedInUser]
+
         // GET: UserController
+        [LogedInUser]
+        [AdminNotLoggedIn]
         public ActionResult Index()
         {
             return View("Login");
         }
         [LogedInUser]
+        [AdminNotLoggedIn]
         public ActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -46,21 +49,30 @@ namespace HomeBudget.WebApp.Controllers
         [NotLoggedIn]
         public ActionResult Create(User user)
         {
+            if (!ModelState.IsValid)
+            {
+                if(user.Name == null || user.Surname==null || user.Username==null || user.PINCode == null)
+                {
+                    return View();
+                }
+            }
             try
+            {
+                User userDB = unitOfWork.User.Search(u => u.Username == user.Username);
+                ModelState.AddModelError(string.Empty, "Username is already taken!");
+                return View();
+            }            
+            catch (Exception e)
             {
                 unitOfWork.User.Add(user);
                 unitOfWork.Commit();
-                return View();
-
-            }
-            catch
-            {
-                return View();
+                return RedirectToAction("Options", "Admin");
             }
         }
 
         // GET: UserController/Details/5
         [LogedInUser]
+        [AdminNotLoggedIn]
         public ActionResult Details()
         {
             int? id = HttpContext.Session.GetInt32("userid");
@@ -78,27 +90,6 @@ namespace HomeBudget.WebApp.Controllers
                 model.Accounts = unitOfWork.Account.Search(a => a.UserID == user.UserID);
             } 
             return View(model);
-        }
-
-        // GET: UserController/Edit/5
-        [LogedInUser]
-        public ActionResult Edit(int id)
-        {
-            User model = unitOfWork.User.FindByID(id);
-            return View(model);
-        }
-
-        // POST: UserController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [LogedInUser]
-        public ActionResult Edit([FromForm]User user)
-        {
-            if (ModelState.IsValid)
-            {
-                
-            }
-            return View();
         }
     }
 }

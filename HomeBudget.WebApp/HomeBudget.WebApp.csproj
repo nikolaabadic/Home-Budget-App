@@ -5,12 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ChartJS" Version="20.2.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\HomeBudget.Data\HomeBudget.Data.csproj" />
     <ProjectReference Include="..\HomeBudget.Domain\HomeBudget.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\favicon.ico">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

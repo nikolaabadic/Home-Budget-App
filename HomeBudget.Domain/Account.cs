@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace HomeBudget.Domain
@@ -15,8 +16,11 @@ namespace HomeBudget.Domain
     public class Account
     {
         public int AccountID { get; set; }
+        [Required(ErrorMessage = "You must enter all fields!")]
         public Currency Currency { get; set; }
+        [Required(ErrorMessage = "You must enter all fields!")]
         public AccountType AccountType { get; set; }
+        [Required(ErrorMessage = "You must enter all fields!")]
         public string Number { get; set; }
         public double Amount { get; set; }
         public double TotalIncome { get; set; }

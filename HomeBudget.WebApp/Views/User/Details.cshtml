@@ -3,34 +3,29 @@
 @{
     ViewData["Title"] = "Home";
 }
+@section Style{
+    <link rel="stylesheet" href="~/css/details.css" />
+}
+<h1>About me</h1> 
 
-<h1>About me</h1>
-
-<div>
-    <h4>User</h4>
-    <hr />
+<div class="user-info">
+    <img src="~/img/user.png"/>
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserID)
-        </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-4">
             @Html.DisplayNameFor(model => model.Surname)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-8">
             @Html.DisplayFor(model => model.Surname)
         </dd>
     </dl>
 </div>
-<div>
+<div class="accounts">
     <h1>My Accounts</h1>
     <table class="table">
         <thead>
@@ -42,13 +37,17 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var a in Model.Accounts)
+            @foreach (var a in Model.Accounts)
             {
                 <tr>
                     <td>@a.Number</td>
                     <td>@a.AccountType</td>
                     <td>@a.Currency</td>
-                    <td>@Html.ActionLink("Details", "Details", "Account", new { id = a.AccountID })</td>
+                    <td>
+                        <div class="action-link">
+                            @Html.ActionLink("Details", "ShowDetails", "Account", new { id = a.AccountID })
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
