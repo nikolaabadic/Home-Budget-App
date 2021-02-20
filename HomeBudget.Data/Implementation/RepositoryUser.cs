@@ -43,7 +43,10 @@ namespace HomeBudget.Data.Implementation
         {
             return context.Users.Single(pred);
         }
-
+        public List<User> SearchUsers(Expression<Func<User, bool>> pred)
+        {
+            return context.Users.Where(pred).ToList();
+        }
 
     }
 }

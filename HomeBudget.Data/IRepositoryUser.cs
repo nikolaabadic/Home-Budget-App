@@ -10,5 +10,6 @@ namespace HomeBudget.Data
     {
         public User GetByUsernameAndPinCode(User user);
         public User Search(Expression<Func<User, bool>> pred);
+        public List<User> SearchUsers(Expression<Func<User, bool>> pred);
     }
 }

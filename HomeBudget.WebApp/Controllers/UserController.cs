@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using HomeBudget.Data.UnitOfWork;
 using HomeBudget.Domain;
@@ -90,6 +91,27 @@ namespace HomeBudget.WebApp.Controllers
                 model.Accounts = unitOfWork.Account.Search(a => a.UserID == user.UserID);
             } 
             return View(model);
+        }
+        [HttpGet]
+        public ActionResult Search(List<User> model)
+        {
+            byte[] usersByte = HttpContext.Session.Get("users");
+            if(usersByte == null)
+            {
+                return View(model);
+            } 
+            List<User> users = JsonSerializer.Deserialize<List<User>>(usersByte);
+            return View(users);
+            
+        }
+        [HttpGet]
+        public ActionResult GetUsersByUsername(string Username)
+        {
+            List<User> users =unitOfWork.User.SearchUsers(u => u.Username.ToLower().Contains(Username.ToLower()));
+            
+            HttpContext.Session.Set("users", JsonSerializer.SerializeToUtf8Bytes(users));
+            
+            return Json(new { redirectToUrl = Url.Action("Search") });
         }
     }
 }
