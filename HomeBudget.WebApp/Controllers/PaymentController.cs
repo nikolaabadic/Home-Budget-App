@@ -44,7 +44,8 @@ namespace HomeBudget.WebApp.Controllers
 
             if (id != null && recipientID != null && accountID != null && ownerAccountID != null)
             {
-                List<Belonging> belongings = unitOfWork.Belonging.Search(b => b.PaymentID == (int)id && b.AccountID == (int)accountID && b.RecipientID == (int)recipientID && b.OwnerID == (int)ownerAccountID);
+                List<Belonging> belongings = unitOfWork.Belonging.Search(b => b.PaymentID == (int)id && 
+                    b.AccountID == (int)accountID && b.RecipientID == (int)recipientID && b.OwnerID == (int)ownerAccountID);
                 PaymentDetailsModel model = new PaymentDetailsModel();
                 model.Payment = unitOfWork.Payment.FindByID((int)id, (int)accountID, (int)recipientID);
                 model.Payment.Categories = belongings;
@@ -197,7 +198,8 @@ namespace HomeBudget.WebApp.Controllers
                 {
                     AccountID = model.Payment.AccountID,
                     AccountNumber = unitOfWork.Account.Search(a => a.AccountID == (int)id)[0].Number,
-                    Categories = unitOfWork.Category.GetAll().Select(c => new SelectListItem { Text = c.Name, Value = c.CategoryID.ToString() }).ToList(),
+                    Categories = unitOfWork.Category.GetAll().Select(c => new SelectListItem { Text = c.Name, 
+                        Value = c.CategoryID.ToString() }).ToList(),
                     Payment = model.Payment
                 });
             }

@@ -70,15 +70,17 @@ namespace HomeBudget.WebApp.Controllers
                         {
                             try
                             {
-                                List<Belonging> belongings = unitOfWork.Belonging.Search(b => b.OwnerID == (int)id && p.PaymentID == b.PaymentID && b.CategoryID == c.CategoryID);
+                                List<Belonging> belongings = unitOfWork.Belonging.Search(b => 
+                                    b.OwnerID == (int)id && p.PaymentID == b.PaymentID && b.CategoryID == c.CategoryID);
                                 foreach(var b in belongings)
                                 {
-                                    chartCategoriesIncome.Add(new ChartCategory { CategoryID = b.CategoryID, Amount = p.Amount, Name = c.Name });
+                                    chartCategoriesIncome.Add(new ChartCategory { CategoryID = b.CategoryID, 
+                                        Amount = p.Amount, Name = c.Name });
                                 }
                             }
                             catch (Exception e)
                             {
-
+                                throw e;
                             }
                         }
                     }
@@ -88,15 +90,18 @@ namespace HomeBudget.WebApp.Controllers
                         {
                             try
                             {
-                                List<Belonging> belongings = unitOfWork.Belonging.Search(b => b.OwnerID == (int)id && p.PaymentID == b.PaymentID && b.CategoryID == c.CategoryID);
+                                List<Belonging> belongings = unitOfWork.Belonging.Search(
+                                    b => b.OwnerID == (int)id && p.PaymentID == b.PaymentID && 
+                                    b.CategoryID == c.CategoryID);
                                 foreach (var b in belongings)
                                 {
-                                    chartCategoriesExpense.Add(new ChartCategory { CategoryID = b.CategoryID, Amount = p.Amount, Name = c.Name });
+                                    chartCategoriesExpense.Add(new ChartCategory { CategoryID = b.CategoryID, 
+                                        Amount = p.Amount, Name = c.Name });
                                 }
                             }
                             catch (Exception e)
                             {
-
+                                throw e;
                             }
                         }
                     }

@@ -30,7 +30,10 @@ namespace HomeBudget.WebApp.Controllers
         {
             try
             {
-                User user = unitOfWork.User.GetByUsernameAndPinCode(new User { Username = model.Username, PINCode = model.PINCode });
+                User user = unitOfWork.User.GetByUsernameAndPinCode(new User { 
+                    Username = model.Username,
+                    PINCode = model.PINCode 
+                });
                 HttpContext.Session.SetInt32("userid", user.UserID);
                 return RedirectToAction("Details","User");
             }
